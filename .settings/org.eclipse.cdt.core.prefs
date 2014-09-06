@@ -1,0 +1,12 @@
+#Sat Sep 06 17:24:36 CEST 2014
+eclipse.preferences.version=1
+environment/project/com.xmos.cdt.toolchain.1116774469/XMOS_MODULE_PATH/delimiter=\:
+environment/project/com.xmos.cdt.toolchain.1116774469/XMOS_MODULE_PATH/operation=append
+environment/project/com.xmos.cdt.toolchain.1116774469/XMOS_MODULE_PATH/value=/home/afeher/workspace-xmos/sw_sncn_motorcontrol_ethercat_kit/app_demo_bldc_position\:/home/afeher/workspace-xmos/sw_sncn_motorcontrol_ethercat_kit/app_demo_bldc_velocity\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/app_test_hall\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/app_test_qei\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_commutation\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_gpio\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_hall\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_motor\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_motorcontrol_common\:/home/afeher/workspace-xmos/sc_somanet-base/module_nodeconfig\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_qei\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_stepper
+environment/project/com.xmos.cdt.toolchain.1116774469/append=true
+environment/project/com.xmos.cdt.toolchain.1116774469/appendContributed=true
+environment/project/com.xmos.cdt.toolchain.961560743/XMOS_MODULE_PATH/delimiter=\:
+environment/project/com.xmos.cdt.toolchain.961560743/XMOS_MODULE_PATH/operation=append
+environment/project/com.xmos.cdt.toolchain.961560743/XMOS_MODULE_PATH/value=/home/afeher/workspace-xmos/sw_sncn_motorcontrol_ethercat_kit/app_demo_bldc_position\:/home/afeher/workspace-xmos/sw_sncn_motorcontrol_ethercat_kit/app_demo_bldc_velocity\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/app_test_hall\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/app_test_qei\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_commutation\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_gpio\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_hall\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_motor\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_motorcontrol_common\:/home/afeher/workspace-xmos/sc_somanet-base/module_nodeconfig\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_qei\:/home/afeher/workspace-xmos/sc_sncn_motorcontrol/module_stepper
+environment/project/com.xmos.cdt.toolchain.961560743/append=true
+environment/project/com.xmos.cdt.toolchain.961560743/appendContributed=true
