@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Network xmlns="http://www.xmos.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.xmos.com http://www.xmos.com">
-  <Type>Device</Type>
-  <Name>SOMANET-(C22+DC100)+3x(C21+DC100)</Name>
+  <Type>Multi Board System</Type>
+  <Name>MultiNodeDXmotionControlPlatform</Name>
 
   <Declarations>
     <Declaration>tileref tile[10]</Declaration>

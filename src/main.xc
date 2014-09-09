@@ -1,4 +1,5 @@
-#include <3xC21+dc100.inc>
+#include <MultiNodeDXmotionControlPlatform.inc>
+
 #include <bldc_motor_config.h>
 #include <print.h>
 #include <stdio.h>
@@ -23,6 +24,8 @@ on stdcore[NODE_1_IFM_TILE]:clock clk_adc_1 = XS1_CLKBLK_1;
 on stdcore[NODE_1_IFM_TILE]:clock clk_pwm_1 = XS1_CLKBLK_REF;
 on stdcore[NODE_2_IFM_TILE]:clock clk_adc_2 = XS1_CLKBLK_1;
 on stdcore[NODE_2_IFM_TILE]:clock clk_pwm_2 = XS1_CLKBLK_REF;
+on stdcore[NODE_3_IFM_TILE]:clock clk_adc_3 = XS1_CLKBLK_1;
+on stdcore[NODE_3_IFM_TILE]:clock clk_pwm_3 = XS1_CLKBLK_REF;
 
 /**
  * Multi-axis Hall sensor test function
@@ -37,36 +40,36 @@ void hall_position(chanend c_hall, int axis_number) {
 
     while (1) {
         /* get position from Hall Sensor */
-        {   position, direction}= get_hall_position_absolute(c_hall);
+        { position, direction}= get_hall_position_absolute(c_hall);
 
         /* get velocity from Hall Sensor */
         velocity = get_hall_velocity(c_hall);
 
         switch (axis_number) {
-case        0:
-        printf("Axis%d: %d\n", axis_number, position);
-        break;
-        case 1:
-        printf("          Axis%d: %d\n", axis_number, position);
-        break;
-        case 2:
-        printf("                    Axis%d: %d\n", axis_number, position);
-        break;
-        default:
-        break;
+            case 0:
+            printf("Axis%d: %d\n", axis_number, position);
+            break;
+            case 1:
+            printf("          Axis%d: %d\n", axis_number, position);
+            break;
+            case 2:
+            printf("                    Axis%d: %d\n", axis_number, position);
+            break;
+            default:
+            break;
+        }
     }
-}
 }
 
 /**
  * Test Profile Velocity function
  *
- * 4000                  ________________
- *                      /                \
- *                     /                  \
- *                    /                    \
- *       ____________/                      \
- * 0     <----3s----><1s><------4s------><1s>
+ * 4000                  ____________
+ *                      /            \
+ *                     /              \
+ *                    /                \
+ *       ____________/                  \
+ * 0     <----3s----><1s><----3s----><1s>
  *
  * @param c_velocity_ctrl Channel to velocity control server
  */
@@ -74,21 +77,16 @@ void profile_velocity_test(chanend c_velocity_ctrl) {
     int acceleration = 4000; // rpm/s
     int deceleration = 4000; // rpm/s
 
-    int pause_duration = 3; //[s]
+    int pause_duration = 2; //[s]
 
-    while(pause_duration--)
-    {
-        printintln(pause_duration + 1);
-        delay_seconds(1);
-    }
-
+    delay_seconds(3);
 
     printstr("Start!");
 
     set_profile_velocity(4000, acceleration, deceleration,
             MAX_PROFILE_VELOCITY, c_velocity_ctrl);
 
-    delay_seconds(4);
+    delay_seconds(3);
 
     set_profile_velocity(0, acceleration, deceleration, MAX_PROFILE_VELOCITY,
             c_velocity_ctrl);
@@ -120,15 +118,24 @@ int main(void) {
     chan c_velocity_ctrl_2; // node 2 velocity control channel
     chan c_watchdog_2; // node 2 WDT channel
 
+    chan c_qei_p1_3, c_qei_p2_3; // node 2 qei channels
+    chan c_hall_p1_3, c_hall_p2_3, c_hall_p3_3, c_hall_p4_3, c_hall_p5_3,
+            c_hall_p6_3; // node 2 hall channels
+    chan c_commutation_p1_3, c_commutation_p2_3, c_commutation_p3_3, c_signal_3; // node 2 commutation channels
+    chan c_pwm_ctrl_3, c_adctrig_3; // node 2 pwm channels
+    chan c_velocity_ctrl_3; // node 2 velocity control channel
+    chan c_watchdog_3; // node 2 WDT channel
+
     par
     {
-        /* C21 node 0 */
-        on tile[NODE_0_APP_TILE]:
+        /* Node # 0 - Core C22 */
+        on tile[NODE_0_APP_TILE_2]:
         {
             par {
                 {
-                    delay_seconds(2);
-                    profile_velocity_test(c_velocity_ctrl_0);
+                    while(1){
+                        profile_velocity_test(c_velocity_ctrl_0);
+                    }
                 }
                 /* Velocity Control Loop */
                 {
@@ -193,13 +200,15 @@ int main(void) {
             }
         }
 
-        /* C21 Node 1 */
+        /* Node # 1 - Core C21 */
         on tile[NODE_1_APP_TILE]:
         {
             par {
                 {
-                    delay_seconds(2);
-                    profile_velocity_test(c_velocity_ctrl_1);
+                    delay_milliseconds(1500);
+                    while(1){
+                        profile_velocity_test(c_velocity_ctrl_1);
+                    }
                 }
                 /* Velocity Control Loop */
                 {
@@ -264,13 +273,15 @@ int main(void) {
             }
         }
 
-        /* C21 Node 2 */
+        /* Node # 2 - Core C21 */
         on tile[NODE_2_APP_TILE]:
         {
             par {
                 {
-                    delay_seconds(2);
-                    profile_velocity_test(c_velocity_ctrl_2);
+                    delay_milliseconds(3000);
+                    while(1){
+                        profile_velocity_test(c_velocity_ctrl_2);
+                    }
                 }
                 /* Velocity Control Loop */
                 {
@@ -331,6 +342,78 @@ int main(void) {
                     run_hall(c_hall_p1_2, c_hall_p2_2, c_hall_p3_2,
                             c_hall_p4_2, c_hall_p5_2, c_hall_p6_2,
                             p_ifm_hall_2, hall_params_2);
+                }
+            }
+        }
+        /* Node # 3 - Core C21 */
+        on tile[NODE_3_APP_TILE]:
+        {
+            par {
+                {
+                    delay_milliseconds(4500);
+                    while(1){
+                        profile_velocity_test(c_velocity_ctrl_3);
+                    }
+                }
+                /* Velocity Control Loop */
+                {
+                    ctrl_par velocity_ctrl_params_3;
+                    filter_par sensor_filter_params_3;
+                    hall_par hall_params_3;
+                    qei_par qei_params_3;
+
+                    init_velocity_control_param(velocity_ctrl_params_3);
+
+                    init_hall_param(hall_params_3);
+                    init_qei_param(qei_params_3);
+
+                    /* Initialize sensor filter length */
+                    init_sensor_filter_param(sensor_filter_params_3);
+
+                    /* Control Loop */
+                    velocity_control(velocity_ctrl_params_3,
+                            sensor_filter_params_3, hall_params_3,
+                            qei_params_3, SENSOR_USED, c_hall_p2_3, c_qei_p2_3,
+                            c_velocity_ctrl_3, c_commutation_p2_3);
+                }
+            }
+        }
+
+        on tile[NODE_3_IFM_TILE]:
+        {
+            par
+            {
+                /* PWM Loop */
+                do_pwm_inv_triggered(c_pwm_ctrl_3, c_adctrig_3,
+                        p_ifm_dummy_port_3, p_ifm_motor_hi_3, p_ifm_motor_lo_3,
+                        clk_pwm_3);
+
+                /* Motor Commutation loop */
+                {
+                    hall_par hall_params_3;
+                    qei_par qei_params_3;
+                    commutation_par commutation_params_3;
+                    int init_state;
+                    init_hall_param(hall_params_3);
+                    init_qei_param(qei_params_3);
+                    commutation_sinusoidal(c_hall_p1_3, c_qei_p1_3, c_signal_3,
+                            c_watchdog_3, c_commutation_p1_3,
+                            c_commutation_p2_3, c_commutation_p3_3,
+                            c_pwm_ctrl_3, p_ifm_esf_rstn_pwml_pwmh_3,
+                            p_ifm_coastn_3, p_ifm_ff1_3, p_ifm_ff2_3,
+                            hall_params_3, qei_params_3, commutation_params_3);
+                }
+
+                /* Watchdog Server */
+                run_watchdog(c_watchdog_3, p_ifm_wd_tick_3,
+                        p_ifm_shared_leds_wden_3);
+
+                /* Hall Server */
+                {
+                    hall_par hall_params_3;
+                    run_hall(c_hall_p1_3, c_hall_p2_3, c_hall_p3_3,
+                            c_hall_p4_3, c_hall_p5_3, c_hall_p6_3,
+                            p_ifm_hall_3, hall_params_3);
                 }
             }
         }

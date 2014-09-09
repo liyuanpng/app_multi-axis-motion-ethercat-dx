@@ -1,4 +1,4 @@
-TARGET = SOMANET-3xC21_Motor_Control
+TARGET = MultiNodeDXmotionControlPlatform
 
 APP_NAME = demo_app
 
