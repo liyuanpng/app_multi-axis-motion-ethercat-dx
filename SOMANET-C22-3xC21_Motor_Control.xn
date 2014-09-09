@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Network xmlns="http://www.xmos.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.xmos.com http://www.xmos.com">
+  <Type>Device</Type>
+  <Name>SOMANET-(C22+DC100)+3x(C21+DC100)</Name>
+
+  <Declarations>
+    <Declaration>tileref tile[10]</Declaration>
+  </Declarations>
+
+  <Packages>
+
+    <!-- NODE # 0 - SOMANET Core C22 -->
+    <!-- C22 Primary Package -->
+    <Package Id="0" Type="XS1-L2A-QF124">
+      <Nodes>
+        <Node Id="0" InPackageId="0" Type="XS1-L1A" Oscillator="25MHz"
+          SystemFrequency="500MHz">
+          <Boot>
+            <Source Location="SPI:bootFlash_0" />
+            <Bootee NodeId="1" Core="0" />
+            <Bootee NodeId="2" Core="0" />
+            <Bootee NodeId="3" Core="0" />
+          </Boot>
+          <Core Number="0" Reference="tile[0]">
+            <Port Location="XS1_PORT_1A" Name="PORT_SPI_MISO_0" />
+            <Port Location="XS1_PORT_1B" Name="PORT_SPI_SS_0" />
+            <Port Location="XS1_PORT_1C" Name="PORT_SPI_CLK_0" />
+            <Port Location="XS1_PORT_1D" Name="PORT_SPI_MOSI_0" />
+          </Core>
+        </Node>
+        <Node Id="1" InPackageId="1" Type="XS1-L1A" Oscillator="25MHz"
+          SystemFrequency="500MHz">
+          <Boot>
+            <Source Location="XMOSLINK" />
+          </Boot>
+          <Core Number="0" Reference="tile[1]">
+            <Port Location="XS1_PORT_1K" Name="LED_BLUE_0" />
+            <Port Location="XS1_PORT_1L" Name="LED_GREEN_0" />
+            <Port Location="XS1_PORT_1M" Name="LED_RED_0" />
+          </Core>
+        </Node>
+      </Nodes>
+    </Package>
+
+    <!-- C22 Secondary Package -->
+    <Package Id="1" Type="XS1-L2A-QF124">
+      <Nodes>
+        <Node Id="2" InPackageId="0" Type="XS1-L1A" Oscillator="25MHz"
+          SystemFrequency="500MHz">
+          <Boot>
+            <Source Location="XMOSLINK" />
+          </Boot>
+          <Core Number="0" Reference="tile[2]">
+          </Core>
+        </Node>
+        <Node Id="3" InPackageId="1" Type="XS1-L1A" Oscillator="25MHz"
+          SystemFrequency="500MHz" ReferenceFrequency="250Mhz">
+          <Boot>
+            <Source Location="XMOSLINK" />
+          </Boot>
+          <Core Number="0" Reference="tile[3]">
+          </Core>
+        </Node>
+      </Nodes>
+    </Package>
+    <!-- END NODE # 0 - SOMANET Core C22 -->
+
+    <!-- NODE # 1 - SOMANET Core C21-DX -->
+    <Package ID="2" Type="XS1-L2A-QF124">
+      <Nodes>
+        <Node Id="4" InPackageId="0" Type="XS1-L1A" Oscillator="25MHz"
+          SystemFrequency="500MHz">
+          <Boot>
+            <Source Location="SPI:bootFlash_1" />
+            <Bootee NodeId="5" Tile="4" />
+          </Boot>
+          <Tile Number="0" Reference="tile[4]">
+            <Port Location="XS1_PORT_1A" Name="PORT_SPI_MISO_1" />
+            <Port Location="XS1_PORT_1B" Name="PORT_SPI_SS_1" />
+            <Port Location="XS1_PORT_1C" Name="PORT_SPI_CLK_1" />
+            <Port Location="XS1_PORT_1D" Name="PORT_SPI_MOSI_1" />
+            <Port Location="XS1_PORT_8D" Name="PORT_SPI_DISABLE_1" />
+            <Port Location="XS1_PORT_1K" Name="LED_BLUE_1" />
+            <Port Location="XS1_PORT_1L" Name="LED_GREEN_1" />
+            <Port Location="XS1_PORT_1M" Name="LED_RED_1" />
+          </Tile>
+        </Node>
+        <Node Id="5" InPackageId="1" Type="XS1-L1A" Oscillator="25MHz"
+          SystemFrequency="500MHz" ReferenceFrequency="250Mhz">
+          <Tile Number="0" Reference="tile[5]" />
+        </Node>
+      </Nodes>
+    </Package>
+    <!-- END NODE # 1 - SOMANET Core C21-DX -->
+
+    <!-- NODE # 2 - SOMANET Core C21-DX -->
+    <Package ID="3" Type="XS1-L2A-QF124">
+      <Nodes>
+        <Node Id="6" InPackageId="0" Type="XS1-L1A" Oscillator="25MHz"
+          SystemFrequency="500MHz">
+          <Boot>
+            <Source Location="SPI:bootFlash_2" />
+            <Bootee NodeId="7" Tile="6" />
+          </Boot>
+          <Tile Number="0" Reference="tile[6]">
+            <Port Location="XS1_PORT_1A" Name="PORT_SPI_MISO_2" />
+            <Port Location="XS1_PORT_1B" Name="PORT_SPI_SS_2" />
+            <Port Location="XS1_PORT_1C" Name="PORT_SPI_CLK_2" />
+            <Port Location="XS1_PORT_1D" Name="PORT_SPI_MOSI_2" />
+            <Port Location="XS1_PORT_8D" Name="PORT_SPI_DISABLE_2" />
+            <Port Location="XS1_PORT_1K" Name="LED_BLUE_2" />
+            <Port Location="XS1_PORT_1L" Name="LED_GREEN_2" />
+            <Port Location="XS1_PORT_1M" Name="LED_RED_2" />
+          </Tile>
+        </Node>
+        <Node Id="7" InPackageId="1" Type="XS1-L1A" Oscillator="25MHz"
+          SystemFrequency="500MHz" ReferenceFrequency="250Mhz">
+          <Tile Number="0" Reference="tile[7]" />
+        </Node>
+      </Nodes>
+    </Package>
+    <!-- END NODE # 2 - SOMANET Core C21-DX -->
+
+    <!-- NODE # 3 - SOMANET Core C21-DX -->
+    <Package ID="4" Type="XS1-L2A-QF124">
+      <Nodes>
+        <Node Id="8" InPackageId="0" Type="XS1-L1A" Oscillator="25MHz"
+          SystemFrequency="500MHz">
+          <Boot>
+            <Source Location="SPI:bootFlash_3" />
+            <Bootee NodeId="9" Tile="8" />
+          </Boot>
+          <Tile Number="0" Reference="tile[8]">
+            <Port Location="XS1_PORT_1A" Name="PORT_SPI_MISO_3" />
+            <Port Location="XS1_PORT_1B" Name="PORT_SPI_SS_3" />
+            <Port Location="XS1_PORT_1C" Name="PORT_SPI_CLK_3" />
+            <Port Location="XS1_PORT_1D" Name="PORT_SPI_MOSI_3" />
+            <Port Location="XS1_PORT_8D" Name="PORT_SPI_DISABLE_3" />
+            <Port Location="XS1_PORT_1K" Name="LED_BLUE_3" />
+            <Port Location="XS1_PORT_1L" Name="LED_GREEN_3" />
+            <Port Location="XS1_PORT_1M" Name="LED_RED_3" />
+          </Tile>
+        </Node>
+        <Node Id="9" InPackageId="1" Type="XS1-L1A" Oscillator="25MHz"
+          SystemFrequency="500MHz" ReferenceFrequency="250Mhz">
+          <Tile Number="0" Reference="tile[9]" />
+        </Node>
+      </Nodes>
+    </Package>
+    <!-- END NODE # 3 - SOMANET Core C21-DX -->
+
+  </Packages>
+
+  <Links>
+
+    <!-- NODE # 0 - SOMANET Core C22 -->
+    <!-- L2-1 internal -->
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="0" Link="XLG" />
+      <LinkEndpoint NodeId="1" Link="XLF" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="0" Link="XLH" />
+      <LinkEndpoint NodeId="1" Link="XLE" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="0" Link="XLE" />
+      <LinkEndpoint NodeId="1" Link="XLH" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="0" Link="XLF" />
+      <LinkEndpoint NodeId="1" Link="XLG" />
+    </Link>
+
+    <!-- L2-1 to L2-2 -->
+    <!-- <Link Encoding="5wire" Delays="4,4"> <LinkEndpoint NodeId="1" Link="XLA"/> 
+      <LinkEndpoint NodeId="2" Link="XLA"/> </Link> -->
+    <Link Encoding="5wire" Delays="4,4">
+      <LinkEndpoint NodeId="1" Link="XLB" />
+      <LinkEndpoint NodeId="2" Link="XLB" />
+    </Link>
+
+    <!-- L2-2 internal -->
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="2" Link="XLG" />
+      <LinkEndpoint NodeId="3" Link="XLF" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="2" Link="XLH" />
+      <LinkEndpoint NodeId="3" Link="XLE" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="2" Link="XLE" />
+      <LinkEndpoint NodeId="3" Link="XLH" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="2" Link="XLF" />
+      <LinkEndpoint NodeId="3" Link="XLG" />
+    </Link>
+    <!-- END NODE # 0 - SOMANET Core C22 -->
+
+    <!-- NODE #0 NODE #2 DX CONNECTION (NODE #1's IFM to NODE #2's COM) -->
+    <Link Encoding="2wire" Delays="4,4">
+      <LinkEndpoint NodeId="3" Link="XLB" />
+      <LinkEndpoint NodeId="4" Link="XLA" />
+    </Link>
+
+    <!-- NODE # 1 - SOMANET Core C21-DX -->
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="4" Link="XLG" />
+      <LinkEndpoint NodeId="5" Link="XLF" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="4" Link="XLH" />
+      <LinkEndpoint NodeId="5" Link="XLE" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="4" Link="XLE" />
+      <LinkEndpoint NodeId="5" Link="XLH" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="4" Link="XLF" />
+      <LinkEndpoint NodeId="5" Link="XLG" />
+    </Link>
+    <!-- END NODE # 1 - SOMANET Core C21-DX -->
+
+    <!-- NODE #1 NODE #2 DX CONNECTION (NODE #1's IFM to NODE #2's COM) -->
+    <Link Encoding="2wire" Delays="4,4">
+      <LinkEndpoint NodeId="5" Link="XLB" />
+      <LinkEndpoint NodeId="6" Link="XLA" />
+    </Link>
+
+    <!-- NODE # 2 - SOMANET Core C21-DX -->
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="6" Link="XLG" />
+      <LinkEndpoint NodeId="7" Link="XLF" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="6" Link="XLH" />
+      <LinkEndpoint NodeId="7" Link="XLE" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="6" Link="XLE" />
+      <LinkEndpoint NodeId="7" Link="XLH" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="6" Link="XLF" />
+      <LinkEndpoint NodeId="7" Link="XLG" />
+    </Link>
+    <!-- END NODE # 2 - SOMANET Core C21-DX -->
+
+    <!-- NODE #2 to NODE #3 DX CONNECTION (NODE #2's IFM to NODE #3's COM) -->
+    <Link Encoding="2wire" Delays="4,4">
+      <LinkEndpoint NodeId="7" Link="XLB" />
+      <LinkEndpoint NodeId="8" Link="XLA" />
+    </Link>
+
+    <!-- NODE # 3 - SOMANET Core C21-DX -->
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="8" Link="XLG" />
+      <LinkEndpoint NodeId="9" Link="XLF" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="8" Link="XLH" />
+      <LinkEndpoint NodeId="9" Link="XLE" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="8" Link="XLE" />
+      <LinkEndpoint NodeId="9" Link="XLH" />
+    </Link>
+    <Link Encoding="5wire" Delays="0,1">
+      <LinkEndpoint NodeId="8" Link="XLF" />
+      <LinkEndpoint NodeId="9" Link="XLG" />
+    </Link>
+    <!-- END NODE # 3 - SOMANET Core C21-DX -->
+
+  </Links>
+
+  <ExternalDevices>
+    <Device NodeId="0" Tile="0" Name="bootFlash_0" Class="SPIFlash"
+      Type="AT25DF041A">
+      <Attribute Name="PORT_SPI_MISO" Value="PORT_SPI_MISO_0" />
+      <Attribute Name="PORT_SPI_SS" Value="PORT_SPI_SS_0" />
+      <Attribute Name="PORT_SPI_CLK" Value="PORT_SPI_CLK_0" />
+      <Attribute Name="PORT_SPI_MOSI" Value="PORT_SPI_MOSI_0" />
+    </Device>
+
+    <Device NodeId="4" Tile="0" Name="bootFlash_1" Class="SPIFlash"
+      Type="AT25DF041A">
+      <Attribute Name="PORT_SPI_MISO" Value="PORT_SPI_MISO_1" />
+      <Attribute Name="PORT_SPI_SS" Value="PORT_SPI_SS_1" />
+      <Attribute Name="PORT_SPI_CLK" Value="PORT_SPI_CLK_1" />
+      <Attribute Name="PORT_SPI_MOSI" Value="PORT_SPI_MOSI_1" />
+    </Device>
+
+    <Device NodeId="6" Tile="0" Name="bootFlash_2" Class="SPIFlash"
+      Type="AT25DF041A">
+      <Attribute Name="PORT_SPI_MISO" Value="PORT_SPI_MISO_2" />
+      <Attribute Name="PORT_SPI_SS" Value="PORT_SPI_SS_2" />
+      <Attribute Name="PORT_SPI_CLK" Value="PORT_SPI_CLK_2" />
+      <Attribute Name="PORT_SPI_MOSI" Value="PORT_SPI_MOSI_2" />
+    </Device>
+
+    <Device NodeId="8" Tile="0" Name="bootFlash_3" Class="SPIFlash"
+      Type="AT25DF041A">
+      <Attribute Name="PORT_SPI_MISO" Value="PORT_SPI_MISO_3" />
+      <Attribute Name="PORT_SPI_SS" Value="PORT_SPI_SS_3" />
+      <Attribute Name="PORT_SPI_CLK" Value="PORT_SPI_CLK_3" />
+      <Attribute Name="PORT_SPI_MOSI" Value="PORT_SPI_MOSI_3" />
+    </Device>
+  </ExternalDevices>
+
+  <JTAGChain>
+    <JTAGDevice NodeId="0" Position="0" />
+    <JTAGDevice NodeId="1" Position="1" />
+    <JTAGDevice NodeId="2" Position="2" />
+    <JTAGDevice NodeId="3" Position="3" />
+    <JTAGDevice NodeId="4" Position="4" />
+    <JTAGDevice NodeId="5" Position="5" />
+    <JTAGDevice NodeId="6" Position="6" />
+    <JTAGDevice NodeId="7" Position="7" />
+    <JTAGDevice NodeId="8" Position="8" />
+    <JTAGDevice NodeId="9" Position="9" />
+  </JTAGChain>
+
+</Network>
